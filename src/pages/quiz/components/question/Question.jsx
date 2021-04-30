@@ -1,7 +1,10 @@
 import {useContext,useState,useEffect,useRef} from "react";
 import QuizData from "../../../../contexts/QuizData";
-import {shuffle,formatTime} from "../../../../functions/tools";
+import {shuffle} from "../../../../functions/tools";
 import './Question.css';
+
+import Timer from "../timer/Timer";
+import Status from "../status/Status";
 
 import correct from "../../../../audio/correct.mp3";
 import wrong from "../../../../audio/incorrect.mp3";
@@ -61,8 +64,9 @@ const Question = ({setCurrentTab,setCorrectAnswer,correctAnswer,timer,overAudio}
 
     return <div  ref={divElement} className="container">
         <div className="feedback">
-            <h4 className="left">Time Left: <span>{formatTime(timer[0])}</span></h4>
-            <div className="right" style={{display:'flex',justifyContent:'space-around'}} ><h4>Score:  ✔️{correctAnswer} ❌  {wrongAnswers}</h4>
+           <Timer timer={timer[0]}/>
+            <div className="right" style={{display:'flex',justifyContent:'space-around'}} >
+                <Status correct={correctAnswer} wrong={wrongAnswers}/>
                 <button style={{float:'right',width:80,height:40,padding:0,fontSize:'1em'}} onClick={()=>{bgAudio.pause();setCorrectAnswer(0);setCurrentTab(0)}}>Quit</button>
             </div>
         </div>
