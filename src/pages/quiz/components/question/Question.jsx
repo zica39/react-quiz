@@ -81,16 +81,14 @@ const Question = ({setCurrentTab,setCorrectAnswers,correctAnswers,timer,overAudi
                     if(item === list[currentQuestion].correct){
                         e.target.className = 'correct blink_me';
                         correctSound.currentTime = .5;
-                        correctSound.play().then();
-                        bgAudio.pause();
+                        setTimeout(()=>{bgAudio.pause();correctSound.play().then();},1);
                         setCorrectAnswers(prevState=>prevState+1);
                         divElement.current.style.pointerEvents = 'none';
                         setTimeout(nextQuestion,1000)
                     }else{
                         e.target.className = 'wrong blink_me';
                         wrongSound.currentTime = 0.8;
-                        wrongSound.play().then();
-                        bgAudio.pause();
+                        setTimeout(()=>{bgAudio.pause();wrongSound.play().then();},1);
                         divElement.current.querySelector('#button'+list[currentQuestion].correct).className='correct';
                         setWrongAnswers(prevState=>prevState+1);
                         divElement.current.style.pointerEvents = 'none';
