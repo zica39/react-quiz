@@ -6,7 +6,7 @@ Getting Started
 
 ```shell
 $ git clone https://github.com/zica39/Domaci2.git
-$ cd react-quiz
+$ cd Domaci2
 $ npm install
 $ npm start
 ```
