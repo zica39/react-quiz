@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css?family=Fondamento&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    font-size: calc(1vw + 1vh + 0.5vmin);
+}
+
+body {
+    background: #1b1c2b;
+    font-family: "Fondamento", cursive;
+    font-size: 1em;
+}
+
+.container{
+    height: 90vh;
+    width: 90vw;
+    margin: auto;
+}
+
+.overlay-fade {
+    background-image: url('./bg.jpg');
+    background-size: cover;
+   background-color: #1b1c2b;
+   display: block;
+   height: 100%;
+   left: 0%;
+   opacity: 1;
+   position: absolute;
+   top: 0%;
+   width: 100%;
+   z-index: 9000;
+}
