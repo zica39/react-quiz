@@ -1,5 +1,5 @@
 # React Quiz
-A JavaScript quiz built with React.
+A simple JavaScript quiz built with React.
 
 Getting Started
 ---------------
