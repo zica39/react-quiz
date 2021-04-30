@@ -10,6 +10,7 @@ import over from "../../audio/over.mp3";
 
 const Quiz = () => {
 
+    //Shuffle action - mix questions before the quiz starts
     const changeQuestions = (state, action) => {
         switch(action.type){
             case 'shuffle':
@@ -19,10 +20,11 @@ const Quiz = () => {
         }
     }
 
+    //0-welcome tab, 1-questions , 2-show result
  const [currentTab, setCurrentTab] = useState(0) // [0,1,2]
  const [questionsList, dispatch] = useReducer(changeQuestions, questions);
 
- const[correctAnswer,setCorrectAnswer] = useState(0);
+ const[correctAnswers,setCorrectAnswers] = useState(0);
  const [timer, setTimer] = useState(0);
 
  const [overAudio] = useState(new Audio(over));
@@ -40,8 +42,8 @@ const Quiz = () => {
          <Welcome setTime={setTimer} setCurrentTab={setCurrentTab}/>
          :
          currentTab === 1?
-             <Question overAudio={overAudio} timer={[timer,setTimer]} correctAnswer={correctAnswer} setCorrectAnswer={setCorrectAnswer} setCurrentTab={setCurrentTab}/>:
-             <End overAudio={overAudio} timer={timer} correctAnswer={correctAnswer} setCorrectAnswer={setCorrectAnswer} setCurrentTab={setCurrentTab}/>
+             <Question overAudio={overAudio} timer={[timer,setTimer]} correctAnswers={correctAnswers} setCorrectAnswers={setCorrectAnswers} setCurrentTab={setCurrentTab}/>:
+             <End overAudio={overAudio} timer={timer} correctAnswers={correctAnswers} setCorrectAnswers={setCorrectAnswers} setCurrentTab={setCurrentTab}/>
     }
    </div>
   </div>

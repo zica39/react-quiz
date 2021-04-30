@@ -11,7 +11,7 @@ import wrong from "../../../../audio/incorrect.mp3";
 import bg from "../../../../audio/background.mp3";
 
 
-const Question = ({setCurrentTab,setCorrectAnswer,correctAnswer,timer,overAudio}) => {
+const Question = ({setCurrentTab,setCorrectAnswers,correctAnswers,timer,overAudio}) => {
     const divElement = useRef(null);
     const [wrongAnswers,setWrongAnswers] = useState(0);
     const[questionNumber,setQuestionNumber] = useState(1);
@@ -21,7 +21,7 @@ const Question = ({setCurrentTab,setCorrectAnswer,correctAnswer,timer,overAudio}
     const [wrongSound] = useState(new Audio(wrong));
     const [bgAudio] = useState(new Audio(bg));
 
-
+    //Uses useEffect to change the counter state value every second
     useEffect(() => {
         const t = setTimeout(() => {
             timer[1](prev=>prev+1)
@@ -29,16 +29,18 @@ const Question = ({setCurrentTab,setCorrectAnswer,correctAnswer,timer,overAudio}
         return ()=>{clearTimeout(t);}
     },[timer]);
 
-
+    //Random selection of the first question
     const[currentQuestion,setCurrentQuestion] = useState(Math.floor(Math.random() * 10) + 1);
     const {list} = useContext(QuizData);
 
+    //When mounting a component, it sets the volume...
     useEffect(()=>{
         correctSound.volume=0.4;
         wrongSound.volume = 0.5;
         correctSound.volume = 0.5;
     },[]);
 
+    //Turns off the effects and displays the following question
     const nextQuestion = () =>{
         setQuestionNumber(prev=>prev+1);
         divElement.current.style.pointerEvents = '';
@@ -48,6 +50,7 @@ const Question = ({setCurrentTab,setCorrectAnswer,correctAnswer,timer,overAudio}
         bgAudio.play().then();
     }
 
+    //Manages the display of questions
     useEffect(()=>{
         if(questionNumber === 1) bgAudio.play().then();
 
@@ -62,12 +65,13 @@ const Question = ({setCurrentTab,setCorrectAnswer,correctAnswer,timer,overAudio}
         }
     },[questionNumber]);
 
+    //Render component
     return <div  ref={divElement} className="container">
         <div className="feedback">
            <Timer timer={timer[0]}/>
             <div className="right" style={{display:'flex',justifyContent:'space-around'}} >
-                <Status correct={correctAnswer} wrong={wrongAnswers}/>
-                <button style={{float:'right',width:80,height:40,padding:0,fontSize:'1em'}} onClick={()=>{bgAudio.pause();setCorrectAnswer(0);setCurrentTab(0)}}>Quit</button>
+                <Status correct={correctAnswers} wrong={wrongAnswers}/>
+                <button style={{float:'right',width:80,height:40,padding:0,fontSize:'1em'}} onClick={()=>{bgAudio.pause();setCorrectAnswers(0);setCurrentTab(0)}}>Quit</button>
             </div>
         </div>
         <h3>{questionNumber}.) {list[currentQuestion].question}</h3>
@@ -79,7 +83,7 @@ const Question = ({setCurrentTab,setCorrectAnswer,correctAnswer,timer,overAudio}
                         correctSound.currentTime = .5;
                         correctSound.play().then();
                         bgAudio.pause();
-                        setCorrectAnswer(prevState=>prevState+1);
+                        setCorrectAnswers(prevState=>prevState+1);
                         divElement.current.style.pointerEvents = 'none';
                         setTimeout(nextQuestion,1000)
                     }else{
